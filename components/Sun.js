@@ -1,12 +1,14 @@
-import * as THREE from 'three';
-import { createMercury } from './Mercury';
-import { createVenus } from './Venus';
-import { createEarth } from './Earth';
-import { createMars } from './Mars'; // Import Mars module
-import { createJupiter } from './Jupiter';
-import { createSaturn } from './Saturn';
-import { createUranus } from './Uranus';
-import { createNeptune } from './Neptune';
+import * as THREE from "three";
+import { createMercury } from "./Mercury";
+import { createVenus } from "./Venus";
+import { createEarth } from "./Earth";
+import { createMars } from "./Mars"; // Import Mars module
+import { createJupiter } from "./Jupiter";
+import { createSaturn } from "./Saturn";
+import { createUranus } from "./Uranus";
+import { createNeptune } from "./Neptune";
+import axios from "axios";
+import { asteroidTemplate } from "@/utils/asteroidTemplate";
 
 
 export function createSun({ renderer, camera }) {
@@ -17,12 +19,12 @@ export function createSun({ renderer, camera }) {
 
     // Load texture for the Sun
     const textureLoader = new THREE.TextureLoader();
-    const sunTexture = textureLoader.load('/textures/sun/8k_sun.jpg'); // Replace with the correct path to your texture image
+    const sunTexture = textureLoader.load("/textures/sun/8k_sun.jpg"); // Replace with the correct path to your texture image
 
     // Sun's material with texture and strong emissive property
     const material = new THREE.MeshBasicMaterial({
         map: sunTexture,
-        emissive: 0xFDB813,
+        emissive: 0xfdb813,
         emissiveIntensity: 1.0,
     });
 
@@ -47,12 +49,19 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(mercuryGroup);
 
     // Create Mercury's orbit ring
-    const mercuryOrbitGeometry = new THREE.RingGeometry(mercuryOrbitRadius - 0.05, mercuryOrbitRadius + 0.05, 64);
+    const mercuryOrbitGeometry = new THREE.RingGeometry(
+        mercuryOrbitRadius - 0.05,
+        mercuryOrbitRadius + 0.05,
+        64,
+    );
     const mercuryOrbitMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         side: THREE.DoubleSide,
     });
-    const mercuryOrbit = new THREE.Mesh(mercuryOrbitGeometry, mercuryOrbitMaterial);
+    const mercuryOrbit = new THREE.Mesh(
+        mercuryOrbitGeometry,
+        mercuryOrbitMaterial,
+    );
     mercuryOrbit.rotation.x = Math.PI / 2;
     sunGroup.add(mercuryOrbit);
 
@@ -65,7 +74,11 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(venusGroup);
 
     // Create Venus's orbit ring
-    const venusOrbitGeometry = new THREE.RingGeometry(venusOrbitRadius - 0.05, venusOrbitRadius + 0.05, 64);
+    const venusOrbitGeometry = new THREE.RingGeometry(
+        venusOrbitRadius - 0.05,
+        venusOrbitRadius + 0.05,
+        64,
+    );
     const venusOrbitMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         side: THREE.DoubleSide,
@@ -124,7 +137,11 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(earthGroup);
 
     // Create Earth's orbit ring
-    const earthOrbitGeometry = new THREE.RingGeometry(earthOrbitRadius - 0.05, earthOrbitRadius + 0.05, 64);
+    const earthOrbitGeometry = new THREE.RingGeometry(
+        earthOrbitRadius - 0.05,
+        earthOrbitRadius + 0.05,
+        64,
+    );
     const earthOrbitMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         side: THREE.DoubleSide,
@@ -142,7 +159,11 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(marsGroup);
 
     // Create Mars's orbit ring
-    const marsOrbitGeometry = new THREE.RingGeometry(marsOrbitRadius - 0.05, marsOrbitRadius + 0.05, 64);
+    const marsOrbitGeometry = new THREE.RingGeometry(
+        marsOrbitRadius - 0.05,
+        marsOrbitRadius + 0.05,
+        64,
+    );
     const marsOrbitMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         side: THREE.DoubleSide,
@@ -158,12 +179,19 @@ export function createSun({ renderer, camera }) {
     jupiterGroup.position.set(jupiterOrbitRadius, 0, 0);
     sunGroup.add(jupiterGroup);
 
-    const jupiterOrbitGeometry = new THREE.RingGeometry(jupiterOrbitRadius - 0.05, jupiterOrbitRadius + 0.05, 64);
+    const jupiterOrbitGeometry = new THREE.RingGeometry(
+        jupiterOrbitRadius - 0.05,
+        jupiterOrbitRadius + 0.05,
+        64,
+    );
     const jupiterOrbitMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         side: THREE.DoubleSide,
     });
-    const jupiterOrbit = new THREE.Mesh(jupiterOrbitGeometry, jupiterOrbitMaterial);
+    const jupiterOrbit = new THREE.Mesh(
+        jupiterOrbitGeometry,
+        jupiterOrbitMaterial,
+    );
     jupiterOrbit.rotation.x = Math.PI / 2;
     sunGroup.add(jupiterOrbit);
 
@@ -174,7 +202,11 @@ export function createSun({ renderer, camera }) {
     saturnGroup.position.set(saturnOrbitRadius, 0, 0);
     sunGroup.add(saturnGroup);
 
-    const saturnOrbitGeometry = new THREE.RingGeometry(saturnOrbitRadius - 0.05, saturnOrbitRadius + 0.05, 64);
+    const saturnOrbitGeometry = new THREE.RingGeometry(
+        saturnOrbitRadius - 0.05,
+        saturnOrbitRadius + 0.05,
+        64,
+    );
     const saturnOrbitMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         side: THREE.DoubleSide,
@@ -190,7 +222,11 @@ export function createSun({ renderer, camera }) {
     uranusGroup.position.set(uranusOrbitRadius, 0, 0);
     sunGroup.add(uranusGroup);
 
-    const uranusOrbitGeometry = new THREE.RingGeometry(uranusOrbitRadius - 0.05, uranusOrbitRadius + 0.05, 64);
+    const uranusOrbitGeometry = new THREE.RingGeometry(
+        uranusOrbitRadius - 0.05,
+        uranusOrbitRadius + 0.05,
+        64,
+    );
     const uranusOrbitMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         side: THREE.DoubleSide,
@@ -206,12 +242,19 @@ export function createSun({ renderer, camera }) {
     neptuneGroup.position.set(neptuneOrbitRadius, 0, 0);
     sunGroup.add(neptuneGroup);
 
-    const neptuneOrbitGeometry = new THREE.RingGeometry(neptuneOrbitRadius - 0.05, neptuneOrbitRadius + 0.05, 64);
+    const neptuneOrbitGeometry = new THREE.RingGeometry(
+        neptuneOrbitRadius - 0.05,
+        neptuneOrbitRadius + 0.05,
+        64,
+    );
     const neptuneOrbitMaterial = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         side: THREE.DoubleSide,
     });
-    const neptuneOrbit = new THREE.Mesh(neptuneOrbitGeometry, neptuneOrbitMaterial);
+    const neptuneOrbit = new THREE.Mesh(
+        neptuneOrbitGeometry,
+        neptuneOrbitMaterial,
+    );
     neptuneOrbit.rotation.x = Math.PI / 2;
     sunGroup.add(neptuneOrbit);
 
