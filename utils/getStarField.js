@@ -3,7 +3,7 @@ import * as THREE from "three";
 export default function getStarfield({ numStars = 500 } = {}) {
   // Function to generate a random position on a sphere's surface
   function randomSpherePoint() {
-    const radius = Math.random() * 50 + 50; // Random radius between 50 and 100 units
+    const radius = Math.random() * 500 + 500; // Random radius between 50 and 100 units
     const u = Math.random();
     const v = Math.random();
     const theta = 2 * Math.PI * u; // Random azimuth angle

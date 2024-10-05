@@ -1,5 +1,12 @@
 import * as THREE from 'three';
+import { createMercury } from './Mercury';
+import { createVenus } from './Venus';
 import { createEarth } from './Earth';
+import { createMars } from './Mars'; // Import Mars module
+import { createJupiter } from './Jupiter';
+import { createSaturn } from './Saturn';
+import { createUranus } from './Uranus';
+import { createNeptune } from './Neptune';
 
 export function createSun() {
     const sunGroup = new THREE.Group();
@@ -13,26 +20,62 @@ export function createSun() {
 
     // Sun's material with texture and strong emissive property
     const material = new THREE.MeshBasicMaterial({
-        map: sunTexture, // Apply the texture
-        emissive: 0xFDB813, // Emissive color for the Sun's glow
-        emissiveIntensity: 1.0, // Full intensity to make the Sun glow
+        map: sunTexture,
+        emissive: 0xFDB813,
+        emissiveIntensity: 1.0,
     });
 
     const sunMesh = new THREE.Mesh(geometry, material);
     sunGroup.add(sunMesh);
 
     // Add PointLight to simulate Sun's light emitting in all directions
-    const sunLight = new THREE.PointLight(0xffffff, 2.5, 1000); // Increased light intensity and range
-    sunLight.position.set(0, 0, 0); // Light positioned at the center of the Sun
+    const sunLight = new THREE.PointLight(0xffffff, 2.5, 1000);
+    sunLight.position.set(0, 0, 0);
     sunGroup.add(sunLight);
 
     // Optional: Ambient light to ensure some light is present even in deep shadows
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.3); // Slight global illumination
+    const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
     sunGroup.add(ambientLight);
+
+    // Create Mercury and its orbit
+    const mercuryGroup = createMercury();
+    const mercuryOrbitRadius = 20; // Mercury's orbit is the closest to the Sun
+
+    // Position Mercury in orbit around the Sun
+    mercuryGroup.position.set(mercuryOrbitRadius, 0, 0);
+    sunGroup.add(mercuryGroup);
+
+    // Create Mercury's orbit ring
+    const mercuryOrbitGeometry = new THREE.RingGeometry(mercuryOrbitRadius - 0.05, mercuryOrbitRadius + 0.05, 64);
+    const mercuryOrbitMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+    });
+    const mercuryOrbit = new THREE.Mesh(mercuryOrbitGeometry, mercuryOrbitMaterial);
+    mercuryOrbit.rotation.x = Math.PI / 2;
+    sunGroup.add(mercuryOrbit);
+
+    // Create Venus and its orbit
+    const venusGroup = createVenus();
+    const venusOrbitRadius = 30; // Venus is closer to the Sun than Earth
+
+    // Position Venus in orbit around the Sun
+    venusGroup.position.set(venusOrbitRadius, 0, 0);
+    sunGroup.add(venusGroup);
+
+    // Create Venus's orbit ring
+    const venusOrbitGeometry = new THREE.RingGeometry(venusOrbitRadius - 0.05, venusOrbitRadius + 0.05, 64);
+    const venusOrbitMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+    });
+    const venusOrbit = new THREE.Mesh(venusOrbitGeometry, venusOrbitMaterial);
+    venusOrbit.rotation.x = Math.PI / 2;
+    sunGroup.add(venusOrbit);
 
     // Create Earth and its orbit
     const earthGroup = createEarth();
-    const earthOrbitRadius = 30;
+    const earthOrbitRadius = 40;
 
     // Position Earth in orbit around the Sun
     earthGroup.position.set(earthOrbitRadius, 0, 0);
@@ -48,25 +91,127 @@ export function createSun() {
     earthOrbit.rotation.x = Math.PI / 2;
     sunGroup.add(earthOrbit);
 
-    // Animation for Sun, Earth, and Moon
+    // Create Mars and its orbit
+    const marsGroup = createMars();
+    const marsOrbitRadius = 55; // Mars is further from the Sun than Earth
+
+    // Position Mars in orbit around the Sun
+    marsGroup.position.set(marsOrbitRadius, 0, 0);
+    sunGroup.add(marsGroup);
+
+    // Create Mars's orbit ring
+    const marsOrbitGeometry = new THREE.RingGeometry(marsOrbitRadius - 0.05, marsOrbitRadius + 0.05, 64);
+    const marsOrbitMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+    });
+    const marsOrbit = new THREE.Mesh(marsOrbitGeometry, marsOrbitMaterial);
+    marsOrbit.rotation.x = Math.PI / 2;
+    sunGroup.add(marsOrbit);
+
+    // Create Jupiter and its orbit
+    const jupiterGroup = createJupiter();
+    const jupiterOrbitRadius = 70;
+
+    jupiterGroup.position.set(jupiterOrbitRadius, 0, 0);
+    sunGroup.add(jupiterGroup);
+
+    const jupiterOrbitGeometry = new THREE.RingGeometry(jupiterOrbitRadius - 0.05, jupiterOrbitRadius + 0.05, 64);
+    const jupiterOrbitMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+    });
+    const jupiterOrbit = new THREE.Mesh(jupiterOrbitGeometry, jupiterOrbitMaterial);
+    jupiterOrbit.rotation.x = Math.PI / 2;
+    sunGroup.add(jupiterOrbit);
+
+    // Create Saturn and its orbit
+    const saturnGroup = createSaturn();
+    const saturnOrbitRadius = 85;
+
+    saturnGroup.position.set(saturnOrbitRadius, 0, 0);
+    sunGroup.add(saturnGroup);
+
+    const saturnOrbitGeometry = new THREE.RingGeometry(saturnOrbitRadius - 0.05, saturnOrbitRadius + 0.05, 64);
+    const saturnOrbitMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+    });
+    const saturnOrbit = new THREE.Mesh(saturnOrbitGeometry, saturnOrbitMaterial);
+    saturnOrbit.rotation.x = Math.PI / 2;
+    sunGroup.add(saturnOrbit);
+
+    // Create Uranus and its orbit
+    const uranusGroup = createUranus();
+    const uranusOrbitRadius = 100;
+
+    uranusGroup.position.set(uranusOrbitRadius, 0, 0);
+    sunGroup.add(uranusGroup);
+
+    const uranusOrbitGeometry = new THREE.RingGeometry(uranusOrbitRadius - 0.05, uranusOrbitRadius + 0.05, 64);
+    const uranusOrbitMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+    });
+    const uranusOrbit = new THREE.Mesh(uranusOrbitGeometry, uranusOrbitMaterial);
+    uranusOrbit.rotation.x = Math.PI / 2;
+    sunGroup.add(uranusOrbit);
+
+    // Create Neptune and its orbit
+    const neptuneGroup = createNeptune();
+    const neptuneOrbitRadius = 110;
+
+    neptuneGroup.position.set(neptuneOrbitRadius, 0, 0);
+    sunGroup.add(neptuneGroup);
+
+    const neptuneOrbitGeometry = new THREE.RingGeometry(neptuneOrbitRadius - 0.05, neptuneOrbitRadius + 0.05, 64);
+    const neptuneOrbitMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+    });
+    const neptuneOrbit = new THREE.Mesh(neptuneOrbitGeometry, neptuneOrbitMaterial);
+    neptuneOrbit.rotation.x = Math.PI / 2;
+    sunGroup.add(neptuneOrbit);
+
+    // Animation for Sun, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune
     sunGroup.animate = function () {
-        // Earth's revolution around the Sun
         const time = Date.now() * 0.0001;
+
+        mercuryGroup.position.x = mercuryOrbitRadius * Math.cos(time * 1.6); // Mercury has a faster orbit
+        mercuryGroup.position.z = mercuryOrbitRadius * Math.sin(time * 1.6);
+        mercuryGroup.rotation.y += 0.01;
+
+        venusGroup.position.x = venusOrbitRadius * Math.cos(time * 1.2); // Venus has a slower orbit than Mercury
+        venusGroup.position.z = venusOrbitRadius * Math.sin(time * 1.2);
+        venusGroup.rotation.y += 0.01;
+
         earthGroup.position.x = earthOrbitRadius * Math.cos(time);
         earthGroup.position.z = earthOrbitRadius * Math.sin(time);
-
-        // Earth's rotation on its axis
         earthGroup.rotation.y += 0.01;
 
-        // Earth's self-rotation
-        if (earthGroup.children[0]) {
-            earthGroup.children[0].rotation.y += 0.05; // Continues to rotate itself
-        }
+        marsGroup.position.x = marsOrbitRadius * Math.cos(time * 0.8); // Mars has a slower orbit than Earth
+        marsGroup.position.z = marsOrbitRadius * Math.sin(time * 0.8);
+        marsGroup.rotation.y += 0.01;
 
-        // Moon's self-rotation (assuming the Moon is the second child)
-        if (earthGroup.children[1]) {
-            earthGroup.children[1].rotation.y += 0.02; // Moon rotates as well
-        }
+        const jupiterTime = Date.now() * 0.00005;
+        jupiterGroup.position.x = jupiterOrbitRadius * Math.cos(jupiterTime);
+        jupiterGroup.position.z = jupiterOrbitRadius * Math.sin(jupiterTime);
+        jupiterGroup.rotation.y += 0.01;
+
+        const saturnTime = Date.now() * 0.00002;
+        saturnGroup.position.x = saturnOrbitRadius * Math.cos(saturnTime);
+        saturnGroup.position.z = saturnOrbitRadius * Math.sin(saturnTime);
+        saturnGroup.rotation.y += 0.01;
+
+        const uranusTime = Date.now() * 0.00001;
+        uranusGroup.position.x = uranusOrbitRadius * Math.cos(uranusTime);
+        uranusGroup.position.z = uranusOrbitRadius * Math.sin(uranusTime);
+        uranusGroup.rotation.y += 0.01;
+
+        const neptuneTime = Date.now() * 0.000005;
+        neptuneGroup.position.x = neptuneOrbitRadius * Math.cos(neptuneTime);
+        neptuneGroup.position.z = neptuneOrbitRadius * Math.sin(neptuneTime);
+        neptuneGroup.rotation.y += 0.01;
     };
 
     return sunGroup;
