@@ -38,7 +38,7 @@ export function createSolarSystem() {
 
   // Lighting setup
   const sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
-  sunLight.position.set(0, 0, 0);
+  sunLight.position.set(10, 10, 10);
   scene.add(sunLight);
 
   // Animation loop
@@ -53,6 +53,10 @@ export function createSolarSystem() {
 
     renderer.render(scene, camera);
   };
+  renderer.shadowMap.enabled = true;
+  sunLight.castShadow = true;
+  earthGroup.castShadow = true;
+  earthGroup.receiveShadow = true;
 
   animate();
 
