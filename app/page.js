@@ -12,7 +12,7 @@ const HomePage = () => {
     const h = window.innerHeight;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
-    camera.position.z = 5;
+    camera.position.z = 50;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(w, h);
@@ -32,11 +32,11 @@ const HomePage = () => {
     sunGroup.position.set(0, 0, 0); // Place Sun at a distance from the Earth
 
     // Add Earth to the scene
-    const earthGroup = createEarth();
-    scene.add(earthGroup);
+    // const earthGroup = createEarth();
+    // scene.add(earthGroup);
 
     // Set Earth's initial position to revolve around the Sun
-    earthGroup.position.set(10, 0, 0);
+    // earthGroup.position.set(20, 0, 0);
 
     // Add starfield to the scene
     const stars = getStarfield({ numStars: 20000 });
@@ -52,11 +52,11 @@ const HomePage = () => {
       requestAnimationFrame(animate);
 
       // Animate Earth
-      earthGroup.animate();
+      // earthGroup.animate();
 
       // Earth revolving around the Sun
-      earthGroup.position.x = Math.sin(Date.now() * 0.001) * 5;
-      earthGroup.position.z = Math.cos(Date.now() * 0.001) * 5;
+      // earthGroup.position.x = Math.sin(Date.now() * 0.001) * 5;
+      // earthGroup.position.z = Math.cos(Date.now() * 0.001) * 5;
 
       // Animate Sun
       sunGroup.animate();
