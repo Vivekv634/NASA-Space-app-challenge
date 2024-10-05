@@ -8,7 +8,8 @@ import { createSaturn } from './Saturn';
 import { createUranus } from './Uranus';
 import { createNeptune } from './Neptune';
 
-export function createSun() {
+
+export function createSun({ renderer, camera }) {
     const sunGroup = new THREE.Group();
 
     // Sun's geometry
@@ -73,10 +74,51 @@ export function createSun() {
     venusOrbit.rotation.x = Math.PI / 2;
     sunGroup.add(venusOrbit);
 
-    // Create Earth and its orbit
+
     const earthGroup = createEarth();
     const earthOrbitRadius = 40;
 
+
+    // Create InfoCard for the Sun
+
+
+    sunMesh.onClick = function () {
+        const hello = document.querySelector('.hello');
+        hello.innerHTML = `<h1> Sun </h1>
+        <p> The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating the energy mainly as visible light and infrared radiation. It is by far the most important source of energy for life on Earth. </p>
+        <p> The Sun is a G-type main-sequence star that comprises about 99.86% of the mass of the Solar System. </p>
+        <p> The Sun is a population I, or heavy-element-rich, star. </p>
+        <p> The Sun is about 4.6 billion years old. </p>
+        `
+    };
+    // Add InfoCard to the DOM
+
+
+    // Add raycaster and mouse vector for detecting clicks
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onMouseClick(event) {
+        // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Update the raycaster with the camera and mouse position
+        raycaster.setFromCamera(mouse, camera);
+
+        // Calculate objects intersecting the picking ray
+        const intersects = raycaster.intersectObjects(sunGroup.children, true);
+
+        for (let i = 0; i < intersects.length; i++) {
+            if (intersects[i].object === sunMesh) {
+                sunMesh.onClick();
+                break;
+            }
+        }
+    }
+
+    // Add event listener to the renderer's DOM element
+    renderer.domElement.addEventListener('click', onMouseClick, false);
     // Position Earth in orbit around the Sun
     earthGroup.position.set(earthOrbitRadius, 0, 0);
     sunGroup.add(earthGroup);

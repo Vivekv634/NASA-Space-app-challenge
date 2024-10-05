@@ -52,5 +52,24 @@ export function createEarth() {
     moonGroup.animate();
   };
 
+  earthGroup.onClick = function (event) {
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, event.camera);
+
+    const intersects = raycaster.intersectObject(earthMesh, true);
+
+    if (intersects.length > 0) {
+      console.log("Earth clicked!");
+      window.open("https://en.wikipedia.org/wiki/Earth", "_blank");
+      // Add any additional actions you want to perform on click
+    }
+  };
+
+  window.addEventListener("click", earthGroup.onClick);
   return earthGroup;
 }

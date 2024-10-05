@@ -30,7 +30,7 @@ const HomePage = () => {
     controls.enableZoom = true; // Allow zooming
 
     // Add Sun to the scene
-    const sunGroup = createSun();
+    const sunGroup = createSun({ renderer, camera });
     scene.add(sunGroup);
     sunGroup.position.set(0, 0, 0); // Place Sun at the center
 
@@ -79,7 +79,9 @@ const HomePage = () => {
     };
   }, []);
 
-  return <div></div>;
+  return <div className='hello fixed top-14 right-10 text-white ' >
+
+  </div>;
 };
 
 export default HomePage;
