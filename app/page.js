@@ -1,14 +1,13 @@
-'use client'
+'use client';
 import React, { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { createEarth } from "../components/Earth";
-import getStarfield from '@/utils/getStarField';
-
+import { createEarth } from "../components/Earth"; // Assuming Earth.js is in the components folder
+import { createSun } from "../components/Sun"; // Assuming Sun.js is in the components folder
+import getStarfield from "@/utils/getStarField";
 
 const HomePage = () => {
   useEffect(() => {
-
     const w = window.innerWidth;
     const h = window.innerHeight;
     const scene = new THREE.Scene();
@@ -27,9 +26,17 @@ const HomePage = () => {
     // Add Orbit Controls
     const controls = new OrbitControls(camera, renderer.domElement);
 
+    // Add Sun to the scene
+    const sunGroup = createSun();
+    scene.add(sunGroup);
+    sunGroup.position.set(0, 0, 0); // Place Sun at a distance from the Earth
+
     // Add Earth to the scene
     const earthGroup = createEarth();
     scene.add(earthGroup);
+
+    // Set Earth's initial position to revolve around the Sun
+    earthGroup.position.set(10, 0, 0);
 
     // Add starfield to the scene
     const stars = getStarfield({ numStars: 20000 });
@@ -44,14 +51,24 @@ const HomePage = () => {
     const animate = () => {
       requestAnimationFrame(animate);
 
+      // Animate Earth
       earthGroup.animate();
 
+      // Earth revolving around the Sun
+      earthGroup.position.x = Math.sin(Date.now() * 0.001) * 5;
+      earthGroup.position.z = Math.cos(Date.now() * 0.001) * 5;
+
+      // Animate Sun
+      sunGroup.animate();
+
+      // Starfield rotation
       stars.rotation.y -= 0.0002;
 
       renderer.render(scene, camera);
     };
     animate();
 
+    // Handle window resize
     const handleWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -65,11 +82,7 @@ const HomePage = () => {
     };
   }, []);
 
-  return (
-    <div>
-
-    </div>
-  );
+  return <div></div>;
 };
 
 export default HomePage;

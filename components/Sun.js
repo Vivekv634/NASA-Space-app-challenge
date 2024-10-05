@@ -1,31 +1,32 @@
 import * as THREE from "three";
 
 export function createSun() {
-    const sunGroup = new THREE.Group();
+  const loader = new THREE.TextureLoader();
+  const sunGroup = new THREE.Group();
 
+  // Geometry for Sun
+  const detail = 12;
+  const geometry = new THREE.IcosahedronGeometry(3, detail); // Slightly larger Sun
 
-    const loader = new THREE.TextureLoader();
-    const sunTexture = loader.load('../assets/textures/sun/sun_texture.jpg');
+  // Load Day Map (Sun texture) with error callback for debugging
+  const sunMaterial = new THREE.MeshPhongMaterial({
+    map: loader.load(
+      "/textures/sun/8k_sun.jpg"
+    ),
+    emissive: new THREE.Color(0xff7b1f), // Add emissive lighting for glow
+    emissiveIntensity: 1.2, // Increase intensity of emissive light for a glowing effect
+    bumpScale: 0.02, // Slight surface detail (optional)
+  });
 
-    const geometry = new THREE.SphereGeometry(1.5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({
-        map: sunTexture,
-        emissive: 0xFDB813,
-        emissiveIntensity: 0.6,
-    });
+  sunMaterial.map.colorSpace = THREE.SRGBColorSpace; // Ensure correct color space
 
+  const sunMesh = new THREE.Mesh(geometry, sunMaterial);
+  sunGroup.add(sunMesh);
 
-    const sunMesh = new THREE.Mesh(geometry, material);
-    sunGroup.add(sunMesh);
+  // Function to animate the Sun's rotation
+  sunGroup.animate = function () {
+    sunMesh.rotation.y += 0.002; // Sun rotates slowly
+  };
 
-    const sunLight = new THREE.PointLight(0xffffff, 2.0, 100);
-    sunLight.position.set(0, 0, 0);
-    sunGroup.add(sunLight);
-
-
-    sunGroup.animate = function () {
-        sunMesh.rotation.y += 0.002;
-    };
-
-    return sunGroup;
+  return sunGroup;
 }

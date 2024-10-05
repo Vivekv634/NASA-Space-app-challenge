@@ -1,9 +1,8 @@
-// SolarSystem.js
 import * as THREE from "three";
-
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { createEarth } from "./Earth";
 import getStarfield from "@/utils/getStarField";
+
 const w = window.innerWidth;
 const h = window.innerHeight;
 
@@ -11,7 +10,10 @@ export function createSolarSystem() {
   // Scene setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
-  camera.position.z = 5;
+
+  // Position camera at an angle (not just along the z-axis)
+  camera.position.set(5, 3, 10); // Adjust these values to place the camera at an angle
+  camera.lookAt(new THREE.Vector3(0, 0, 0)); // Make sure camera looks at the center of the solar system (Earth's position)
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(w, h);
@@ -27,6 +29,7 @@ export function createSolarSystem() {
 
   // Add Earth to the scene
   const earthGroup = createEarth();
+  earthGroup.position.set(0, 0, 0);
   scene.add(earthGroup);
 
   // Add starfield to the scene
@@ -35,7 +38,7 @@ export function createSolarSystem() {
 
   // Lighting setup
   const sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
-  sunLight.position.set(-2, 0.5, 1.5);
+  sunLight.position.set(0, 0, 0);
   scene.add(sunLight);
 
   // Animation loop
