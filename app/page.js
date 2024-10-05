@@ -1,13 +1,14 @@
-// page.js
+'use client'
 import React, { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { createEarth } from "../components/Earth"; // Import Earth component
-import getStarfield from "../components/getStarfield"; // Import the starfield function
+import { createEarth } from "../components/Earth";
+import getStarfield from '@/utils/getStarField';
+
 
 const HomePage = () => {
   useEffect(() => {
-    // Set up Three.js scene, camera, and renderer
+
     const w = window.innerWidth;
     const h = window.innerHeight;
     const scene = new THREE.Scene();
@@ -43,18 +44,14 @@ const HomePage = () => {
     const animate = () => {
       requestAnimationFrame(animate);
 
-      // Animate Earth
       earthGroup.animate();
 
-      // Rotate stars slowly
       stars.rotation.y -= 0.0002;
 
-      // Render the scene
       renderer.render(scene, camera);
     };
     animate();
 
-    // Handle window resize
     const handleWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -62,7 +59,6 @@ const HomePage = () => {
     };
     window.addEventListener("resize", handleWindowResize, false);
 
-    // Clean up on component unmount
     return () => {
       window.removeEventListener("resize", handleWindowResize);
       document.body.removeChild(renderer.domElement);
@@ -71,8 +67,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Welcome to the 3D Solar System</h1>
-      <p>Explore the planets and stars in real-time 3D!</p>
+
     </div>
   );
 };

@@ -43,14 +43,14 @@ export default function getStarfield({ numStars = 500 } = {}) {
   geo.setAttribute("position", new THREE.Float32BufferAttribute(verts, 3));
   geo.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
 
-  // Create a points material for rendering stars
+
   const mat = new THREE.PointsMaterial({
-    size: 0.2, // Size of each star point
-    vertexColors: true, // Enable vertex-based color
-    map: new THREE.TextureLoader().load("../assets/textures/stars/circle.png"), // Load circular texture for stars
+    size: 0.2,
+    vertexColors: true,
+    map: new THREE.TextureLoader().load("/textures/stars/circle.png"),
   });
 
-  // Create a THREE.Points object containing the geometry and material
+
   const points = new THREE.Points(geo, mat);
 
   return points;
