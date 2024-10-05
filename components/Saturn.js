@@ -19,8 +19,8 @@ export function createSaturn() {
     saturnGroup.add(saturnMesh);
 
     // Saturn's ring geometry
-    const ringInnerRadius = 0.1;
-    const ringOuterRadius = 0.2;
+    const ringInnerRadius = 7;
+    const ringOuterRadius = 8;
     const ringGeometry = new THREE.RingGeometry(ringInnerRadius, ringOuterRadius, 64);
 
     // Ring material
