@@ -16,7 +16,11 @@ export function createSaturn({ renderer, camera }) {
 
             const hello = document.querySelector('.hello');
             hello.innerHTML = `
-        <h1>Hello S<h1/>
+        <h1>Saturn<h1/>
+        <p>Distance from the Sun: 1.4 billion km</p>
+        <p>Length of a day: 10.7 hours</p>
+        <p>Length of a year: 29.5 Earth years</p>
+        
         `
         }
     }

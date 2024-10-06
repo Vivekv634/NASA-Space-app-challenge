@@ -16,7 +16,10 @@ export function createMars({ renderer, camera }) {
 
             const hello = document.querySelector('.hello');
             hello.innerHTML = `
-        <h1>Hello Mars<h1/>
+        <h1>Mars<h1/>
+        <p>Distance from the Sun: 227.9 million km</p>
+        <p>Length of a day: 24.6 hours</p>
+        <p>Length of a year: 687 Earth days</p>
         `
         }
     }

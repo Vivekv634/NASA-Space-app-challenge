@@ -16,7 +16,11 @@ export function createUranus({ renderer, camera }) {
 
             const hello = document.querySelector('.hello');
             hello.innerHTML = `
-        <h1>Hello U<h1/>
+        <h1>Uranus<h1/>
+        <p>Distance from the Sun: 2.9 billion km</p>
+        <p>Length of a day: 17.2 hours</p>
+        <p>Length of a year: 84 Earth years</p>
+        
         `
         }
     }

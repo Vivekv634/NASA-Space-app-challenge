@@ -96,12 +96,13 @@ export function createSun({ renderer, camera }) {
 
 
     sunMesh.onClick = function () {
+        saturnGroup
         const hello = document.querySelector('.hello');
-        hello.innerHTML = `<h1> Sun </h1>
-        <p> The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating the energy mainly as visible light and infrared radiation. It is by far the most important source of energy for life on Earth. </p>
-        <p> The Sun is a G-type main-sequence star that comprises about 99.86% of the mass of the Solar System. </p>
-        <p> The Sun is a population I, or heavy-element-rich, star. </p>
-        <p> The Sun is about 4.6 billion years old. </p>
+        hello.innerHTML = `<div className='text-3xl font-bold'> Sun </div>
+        <p> Distance from Earth: 149.6 million km </p>
+        <p> Length of a day: 24 hours </p>
+        <p> Length of a year: 365.25 days </p>
+        <p> Fun Fact: The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, with internal convective motion that generates a magnetic field via a dynamo process. It is by far the most important source of energy for life on Earth. </p>
         `
     };
     // Add InfoCard to the DOM

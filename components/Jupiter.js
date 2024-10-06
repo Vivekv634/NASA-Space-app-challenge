@@ -17,7 +17,11 @@ export const createJupiter = ({ renderer, camera }) => {
 
             const hello = document.querySelector('.hello');
             hello.innerHTML = `
-        <h1>Hello J<h1/>
+        <h1>Jupiter<h1/>
+        <p>Distance from the Sun: 778.5 million km</p>
+        <p>Length of a day: 9.9 hours</p>
+        <p>Length of a year: 12 Earth
+        
         `
         }
     }

@@ -16,7 +16,10 @@ export function createVenus({ renderer, camera }) {
 
             const hello = document.querySelector('.hello');
             hello.innerHTML = `
-        <h1>Hello V<h1/>
+        <h1>Venus<h1/>
+        <p>Distance from the Sun: 108.2 million km</p>
+        <p>Length of a day: 116.8 Earth days</p>
+        <p>Length of a year: 225 Earth days</p>
         `
         }
     }
