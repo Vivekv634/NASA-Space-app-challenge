@@ -1,7 +1,11 @@
 import * as THREE from "three";
+
 function asteroidTemplate(asteroidsArray, earthGroup) {
   // Create a group for all asteroids
   const asteroidGroup = new THREE.Group();
+
+  // Earth's orbit distance (scaled down for visualization)
+  const earthOrbitRadius = 40; // Scaled value for Earth's orbit around the Sun
 
   // Loop through the array of asteroids
   asteroidsArray.forEach((asteroid, index) => {
@@ -16,21 +20,21 @@ function asteroidTemplate(asteroidsArray, earthGroup) {
     const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
     const asteroidMesh = new THREE.Mesh(geometry, material);
 
-    // Set a unique position for each asteroid
-    const distance = 2 + index * 0.5; // Increase distance to avoid overlap
-    const angle = index * 0.4; // Spread out in a circular orbit
-    asteroidMesh.position.set(
-      distance * Math.cos(angle),
-      distance * Math.sin(angle),
-      index * Math.random(),
-    );
+    // Set a unique angle for each asteroid
+    const angle = index * ((2 * Math.PI) / asteroidsArray.length); // Evenly distribute around the orbit
+
+    // Convert polar coordinates (earthOrbitRadius and angle) to Cartesian coordinates (x, z)
+    const x = Math.cos(angle) * earthOrbitRadius;
+    const z = Math.sin(angle) * earthOrbitRadius;
+
+    asteroidMesh.position.set(x, 0, z); // Set position in XZ-plane (y = 0 for no vertical movement)
 
     // Add the name label above the asteroid
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
-    context.font = "40px Arial";
+    context.font = "72px Arial";
     context.fillStyle = "white";
-    context.fillText(asteroid.name, -40, 50);
+    context.fillText(asteroid.name, 0, 50);
 
     const texture = new THREE.CanvasTexture(canvas);
     const labelMaterial = new THREE.SpriteMaterial({ map: texture });
@@ -46,8 +50,11 @@ function asteroidTemplate(asteroidsArray, earthGroup) {
 
   // Add the entire asteroid group to the Earth group
   earthGroup.add(asteroidGroup);
+
+  // Optional: You can animate the entire group (rotation)
   asteroidGroup.animate = function () {
-    asteroidGroup.rotation.x += 2;
+    asteroidGroup.rotation.y += 0.01; // Rotate around the Y-axis for a circular orbit animation
   };
 }
+
 export { asteroidTemplate };

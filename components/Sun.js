@@ -10,7 +10,6 @@ import { createNeptune } from "./Neptune";
 import axios from "axios";
 import { asteroidTemplate } from "@/utils/asteroidTemplate";
 
-
 export function createSun({ renderer, camera }) {
     const sunGroup = new THREE.Group();
 

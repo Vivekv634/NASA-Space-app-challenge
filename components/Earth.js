@@ -78,6 +78,6 @@ export function createEarth({ renderer, camera }) {
     moonGroup.animate();
   };
 
-
   return earthGroup;
 }
+
