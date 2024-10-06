@@ -53,7 +53,7 @@ function asteroidTemplate(asteroidsArray, earthGroup) {
 
   // Optional: You can animate the entire group (rotation)
   asteroidGroup.animate = function () {
-    asteroidGroup.rotation.y += 0.01; // Rotate around the Y-axis for a circular orbit animation
+    asteroidGroup.rotation.x += 0.1; // Rotate around the Y-axis for a circular orbit animation
   };
 }
 

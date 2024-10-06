@@ -39,9 +39,9 @@ export function createSun({ renderer, camera }) {
   const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
   sunGroup.add(ambientLight);
 
-    // Create Mercury and its orbit
-    const mercuryGroup = createMercury({ renderer, camera });
-    const mercuryOrbitRadius = 20; // Mercury's orbit is the closest to the Sun
+  // Create Mercury and its orbit
+  const mercuryGroup = createMercury({ renderer, camera });
+  const mercuryOrbitRadius = 20; // Mercury's orbit is the closest to the Sun
 
   // Position Mercury in orbit around the Sun
   mercuryGroup.position.set(mercuryOrbitRadius, 0, 0);
@@ -64,9 +64,9 @@ export function createSun({ renderer, camera }) {
   mercuryOrbit.rotation.x = Math.PI / 2;
   sunGroup.add(mercuryOrbit);
 
-    // Create Venus and its orbit
-    const venusGroup = createVenus({ renderer, camera });
-    const venusOrbitRadius = 30; // Venus is closer to the Sun than Earth
+  // Create Venus and its orbit
+  const venusGroup = createVenus({ renderer, camera });
+  const venusOrbitRadius = 30; // Venus is closer to the Sun than Earth
 
   // Position Venus in orbit around the Sun
   venusGroup.position.set(venusOrbitRadius, 0, 0);
@@ -86,10 +86,8 @@ export function createSun({ renderer, camera }) {
   venusOrbit.rotation.x = Math.PI / 2;
   sunGroup.add(venusOrbit);
 
-  
-
-    const earthGroup = createEarth({ renderer, camera });
-    const earthOrbitRadius = 40;
+  const earthGroup = createEarth({ renderer, camera });
+  const earthOrbitRadius = 40;
 
   sunMesh.onClick = function () {
     const hello = document.querySelector(".hello");
@@ -144,23 +142,76 @@ export function createSun({ renderer, camera }) {
   const earthOrbit = new THREE.Mesh(earthOrbitGeometry, earthOrbitMaterial);
   earthOrbit.rotation.x = Math.PI / 2;
   sunGroup.add(earthOrbit);
-  axios
-    .get(
-      "https://api.nasa.gov/neo/rest/v1/feed?api_key=xAJJW3QR1SJqtDTiRS0qlq2BY5VxUaT7fdfZTN82",
-    )
-    .then((response) => {
-      const asteroidData = response.data;
-      const asteroidsArray = Object.values(asteroidData.near_earth_objects)[
-        Math.floor(
-          Object.values(asteroidData.near_earth_objects).length * Math.random(),
-        )
-      ];
-      asteroidTemplate(asteroidsArray, sunGroup);
-    });
+  // axios
+  //   .get(
+  //     "https://api.nasa.gov/neo/rest/v1/feed?api_key=xAJJW3QR1SJqtDTiRS0qlq2BY5VxUaT7fdfZTN82",
+  //   )
+  //   .then((response) => {
+  //     const asteroidData = response.data;
+  //     const asteroidsArray = Object.values(asteroidData.near_earth_objects)[
+  //       Math.floor(
+  //         Object.values(asteroidData.near_earth_objects).length * Math.random(),
+  //       )
+  //     ];
+  //     asteroidTemplate(asteroidsArray, sunGroup);
+  //   });
+  const data = [
+    {
+      links: {
+        self: "http://api.nasa.gov/neo/rest/v1/neo/2534676?api_key=W0TkHMQOgCUOmshCxo1GbilmIt7xVdAGrFlDbeS2",
+      },
+      id: "2534676",
+      neo_reference_id: "2534676",
+      name: "534676",
+      nasa_jpl_url:
+        "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=2534676",
+      absolute_magnitude_h: 18.65,
+      estimated_diameter: {
+        kilometers: {
+          estimated_diameter_min: 0.4949427609,
+          estimated_diameter_max: 1.1067256584,
+        },
+        meters: {
+          estimated_diameter_min: 494.942760925,
+          estimated_diameter_max: 1106.7256583997,
+        },
+        miles: {
+          estimated_diameter_min: 0.3075430783,
+          estimated_diameter_max: 0.6876872291,
+        },
+        feet: {
+          estimated_diameter_min: 1623.8280077531,
+          estimated_diameter_max: 3630.9898091041,
+        },
+      },
+      is_potentially_hazardous_asteroid: false,
+      close_approach_data: [
+        {
+          close_approach_date: "2024-10-09",
+          close_approach_date_full: "2024-Oct-09 07:46",
+          epoch_date_close_approach: 1728459960000,
+          relative_velocity: {
+            kilometers_per_second: "18.0404377186",
+            kilometers_per_hour: "64945.5757870626",
+            miles_per_hour: "40354.6551328001",
+          },
+          miss_distance: {
+            astronomical: "0.2244455461",
+            lunar: "87.3093174329",
+            kilometers: "33576575.627546807",
+            miles: "20863516.6408356566",
+          },
+          orbiting_body: "Earth",
+        },
+      ],
+      is_sentry_object: false,
+    },
+  ];
 
-    // Create Mars and its orbit
-    const marsGroup = createMars({ renderer, camera });
-    const marsOrbitRadius = 55; // Mars is further from the Sun than Earth
+  asteroidTemplate(data, sunGroup);
+  // Create Mars and its orbit
+  const marsGroup = createMars({ renderer, camera });
+  const marsOrbitRadius = 55; // Mars is further from the Sun than Earth
 
   // Position Mars in orbit around the Sun
   marsGroup.position.set(marsOrbitRadius, 0, 0);
@@ -180,9 +231,9 @@ export function createSun({ renderer, camera }) {
   marsOrbit.rotation.x = Math.PI / 2;
   sunGroup.add(marsOrbit);
 
-    // Create Jupiter and its orbit
-    const jupiterGroup = createJupiter({ renderer, camera });
-    const jupiterOrbitRadius = 70;
+  // Create Jupiter and its orbit
+  const jupiterGroup = createJupiter({ renderer, camera });
+  const jupiterOrbitRadius = 70;
 
   jupiterGroup.position.set(jupiterOrbitRadius, 0, 0);
   sunGroup.add(jupiterGroup);
@@ -203,9 +254,9 @@ export function createSun({ renderer, camera }) {
   jupiterOrbit.rotation.x = Math.PI / 2;
   sunGroup.add(jupiterOrbit);
 
-    // Create Saturn and its orbit
-    const saturnGroup = createSaturn({ renderer, camera });
-    const saturnOrbitRadius = 85;
+  // Create Saturn and its orbit
+  const saturnGroup = createSaturn({ renderer, camera });
+  const saturnOrbitRadius = 85;
 
   saturnGroup.position.set(saturnOrbitRadius, 0, 0);
   sunGroup.add(saturnGroup);
@@ -223,9 +274,9 @@ export function createSun({ renderer, camera }) {
   saturnOrbit.rotation.x = Math.PI / 2;
   sunGroup.add(saturnOrbit);
 
-    // Create Uranus and its orbit
-    const uranusGroup = createUranus({ renderer, camera });
-    const uranusOrbitRadius = 100;
+  // Create Uranus and its orbit
+  const uranusGroup = createUranus({ renderer, camera });
+  const uranusOrbitRadius = 100;
 
   uranusGroup.position.set(uranusOrbitRadius, 0, 0);
   sunGroup.add(uranusGroup);
@@ -243,9 +294,9 @@ export function createSun({ renderer, camera }) {
   uranusOrbit.rotation.x = Math.PI / 2;
   sunGroup.add(uranusOrbit);
 
-    // Create Neptune and its orbit
-    const neptuneGroup = createNeptune({ renderer, camera });
-    const neptuneOrbitRadius = 110;
+  // Create Neptune and its orbit
+  const neptuneGroup = createNeptune({ renderer, camera });
+  const neptuneOrbitRadius = 110;
 
   neptuneGroup.position.set(neptuneOrbitRadius, 0, 0);
   sunGroup.add(neptuneGroup);
