@@ -1,10 +1,30 @@
 import * as THREE from "three";
 
-function asteroidTemplate(asteroidsArray, earthGroup) {
+function asteroidTemplate(asteroidsArray, earthGroup, { camera, renderer }) {
   // Create a group for all asteroids
   const asteroidGroup = new THREE.Group();
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
 
-  // Earth's orbit distance (scaled down for visualization)
+  function onMouseClick(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObject(asteroidGroup, true);
+
+    if (intersects.length > 0) {
+      const hello = document.querySelector(".hello");
+      hello.innerHTML = `
+      <h1>solution date:2024-May-14 05:47:54
+# obs. used (total):198
+data-arc span:3487 days (9.55 years)
+first obs. used:2014-10-26
+last obs. used:2024-05-13<h1/>
+      `;
+    }
+  }
+  renderer.domElement.addEventListener("click", onMouseClick); // Earth's orbit distance (scaled down for visualization)
   const earthOrbitRadius = 40; // Scaled value for Earth's orbit around the Sun
 
   // Loop through the array of asteroids

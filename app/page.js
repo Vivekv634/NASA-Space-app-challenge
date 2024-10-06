@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"; // OrbitControls for Sun
@@ -7,7 +7,6 @@ import { createSun } from "../components/Sun"; // Assuming Sun.js is in the comp
 import getStarfield from "@/utils/getStarField";
 
 const HomePage = () => {
-
   useEffect(() => {
     const w = window.innerWidth;
     const h = window.innerHeight;
@@ -74,21 +73,29 @@ const HomePage = () => {
     };
     window.addEventListener("resize", handleWindowResize, false);
 
-
     return () => {
       window.removeEventListener("resize", handleWindowResize);
       document.body.removeChild(renderer.domElement);
     };
-
   }, []);
 
-  return <div className={`hello min-w-0 p-4 mx-2 rounded-md border border-gray-100 fixed top-14 right-10 bg-transparent max-w-[300px] text-white  `} >
-    <div> Sun </div>
-    <p> Distance from Earth: 149.6 million km </p>
-    <p> Length of a day: 24 hours </p>
-    <p> Length of a year: 365.25 days </p>
-    <p> Fun Fact: The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, with internal convective motion that generates a magnetic field via a dynamo process. It is by far the most important source of energy for life on Earth. </p>
-  </div >;
+  return (
+    <div
+      className={`hello min-w-0 p-4 rounded-md border border-gray-100 fixed top-14 right-14 bg-transparent max-w-[300px] text-white  `}
+    >
+      <div> Sun </div>
+      <p> Distance from Earth: 149.6 million km </p>
+      <p> Length of a day: 24 hours </p>
+      <p> Length of a year: 365.25 days </p>
+      <p>
+        {" "}
+        Fun Fact: The Sun is the star at the center of the Solar System. It is a
+        nearly perfect sphere of hot plasma, with internal convective motion
+        that generates a magnetic field via a dynamo process. It is by far the
+        most important source of energy for life on Earth.{" "}
+      </p>
+    </div>
+  );
 };
 
 export default HomePage;
