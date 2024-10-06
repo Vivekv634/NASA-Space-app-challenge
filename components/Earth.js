@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { getFresnelMat } from "@/utils/getFresnelMat";
 import { createMoon } from "./Moon";
 
-export function createEarth() {
+export function createEarth(camera) {
   const loader = new THREE.TextureLoader();
   const earthGroup = new THREE.Group();
 
@@ -52,24 +52,30 @@ export function createEarth() {
     moonGroup.animate();
   };
 
+  // Add onClick event handler
   earthGroup.onClick = function (event) {
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
+    // Convert the mouse click coordinates into normalized device coordinates (NDC)
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    raycaster.setFromCamera(mouse, event.camera);
+    // Set the raycaster from the camera and mouse position
+    raycaster.setFromCamera(mouse, camera);
 
+    // Check for intersections between the ray and the Earth mesh
     const intersects = raycaster.intersectObject(earthMesh, true);
 
     if (intersects.length > 0) {
       console.log("Earth clicked!");
       window.open("https://en.wikipedia.org/wiki/Earth", "_blank");
-      // Add any additional actions you want to perform on click
     }
   };
 
+  // Add event listener
   window.addEventListener("click", earthGroup.onClick);
+
   return earthGroup;
 }
+
