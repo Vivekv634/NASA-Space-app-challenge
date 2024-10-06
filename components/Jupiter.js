@@ -1,8 +1,27 @@
 import * as THREE from 'three';
 
 // Function to create Jupiter and its orbit
-export const createJupiter = () => {
+export const createJupiter = ({ renderer, camera }) => {
     const jupiterGroup = new THREE.Group();
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onMouseClick(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(jupiterGroup, true);
+
+        if (intersects.length > 0) {
+
+            const hello = document.querySelector('.hello');
+            hello.innerHTML = `
+        <h1>Hello J<h1/>
+        `
+        }
+    }
+    renderer.domElement.addEventListener("click", onMouseClick);
 
     // Jupiter texture (you can use a proper texture of Jupiter here)
     const jupiterTexture = new THREE.TextureLoader().load('/textures/jupiter/8k_jupiter.jpg'); // Ensure you have this texture in your assets

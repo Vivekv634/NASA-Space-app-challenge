@@ -1,8 +1,26 @@
 import * as THREE from 'three';
 
-export function createSaturn() {
+export function createSaturn({ renderer, camera }) {
     const saturnGroup = new THREE.Group();
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
 
+    function onMouseClick(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(saturnGroup, true);
+
+        if (intersects.length > 0) {
+
+            const hello = document.querySelector('.hello');
+            hello.innerHTML = `
+        <h1>Hello S<h1/>
+        `
+        }
+    }
+    renderer.domElement.addEventListener("click", onMouseClick);
     // Saturn's geometry
     const saturnGeometry = new THREE.SphereGeometry(6, 32, 32);
 

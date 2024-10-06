@@ -1,8 +1,26 @@
 import * as THREE from 'three';
 
-export function createVenus() {
+export function createVenus({ renderer, camera }) {
     const venusGroup = new THREE.Group();
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
 
+    function onMouseClick(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(venusGroup, true);
+
+        if (intersects.length > 0) {
+
+            const hello = document.querySelector('.hello');
+            hello.innerHTML = `
+        <h1>Hello V<h1/>
+        `
+        }
+    }
+    renderer.domElement.addEventListener("click", onMouseClick);
     // Venus geometry
     const venusGeometry = new THREE.SphereGeometry(1, 32, 32); // Venus is larger than Mercury
 

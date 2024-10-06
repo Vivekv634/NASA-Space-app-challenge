@@ -1,7 +1,27 @@
 import * as THREE from 'three';
 
-export function createMercury() {
+export function createMercury({ renderer, camera }) {
     const mercuryGroup = new THREE.Group();
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onMouseClick(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(mercuryGroup, true);
+
+        if (intersects.length > 0) {
+
+            const hello = document.querySelector('.hello');
+            hello.innerHTML = `
+        <h1>Hello M<h1/>
+        `
+        }
+    }
+    renderer.domElement.addEventListener("click", onMouseClick);
 
     // Mercury geometry
     const mercuryGeometry = new THREE.SphereGeometry(0.6, 32, 32); // Mercury's radius is smaller than Earth's

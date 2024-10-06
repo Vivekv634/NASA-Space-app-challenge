@@ -2,7 +2,27 @@ import * as THREE from "three";
 import { getFresnelMat } from "@/utils/getFresnelMat";
 import { createMoon } from "./Moon";
 
-export function createEarth(camera) {
+export function createEarth({ renderer, camera }) {
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  function onMouseClick(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObject(earthGroup, true);
+
+    if (intersects.length > 0) {
+
+      const hello = document.querySelector('.hello');
+      hello.innerHTML = `
+      <h1>Hello<h1/>
+      `
+    }
+  }
+
+  renderer.domElement.addEventListener("click", onMouseClick);
   const loader = new THREE.TextureLoader();
   const earthGroup = new THREE.Group();
 
@@ -41,7 +61,7 @@ export function createEarth(camera) {
   glowMesh.scale.setScalar(1.01);
   earthGroup.add(glowMesh);
 
-  const moonGroup = createMoon();
+  const moonGroup = createMoon({ renderer, camera });
   earthGroup.add(moonGroup);
 
   earthGroup.animate = function () {
@@ -51,30 +71,6 @@ export function createEarth(camera) {
     glowMesh.rotation.y += 0.002;
     moonGroup.animate();
   };
-
-  // Add onClick event handler
-  earthGroup.onClick = function (event) {
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-
-    // Convert the mouse click coordinates into normalized device coordinates (NDC)
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    // Set the raycaster from the camera and mouse position
-    raycaster.setFromCamera(mouse, camera);
-
-    // Check for intersections between the ray and the Earth mesh
-    const intersects = raycaster.intersectObject(earthMesh, true);
-
-    if (intersects.length > 0) {
-      console.log("Earth clicked!");
-      window.open("https://en.wikipedia.org/wiki/Earth", "_blank");
-    }
-  };
-
-  // Add event listener
-  window.addEventListener("click", earthGroup.onClick);
 
   return earthGroup;
 }

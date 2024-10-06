@@ -1,7 +1,26 @@
 import * as THREE from 'three';
 
-export function createUranus() {
+export function createUranus({ renderer, camera }) {
     const uranusGroup = new THREE.Group();
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onMouseClick(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(uranusGroup, true);
+
+        if (intersects.length > 0) {
+
+            const hello = document.querySelector('.hello');
+            hello.innerHTML = `
+        <h1>Hello U<h1/>
+        `
+        }
+    }
+    renderer.domElement.addEventListener("click", onMouseClick);
 
     // Uranus geometry
     const uranusGeometry = new THREE.SphereGeometry(5, 32, 32);
