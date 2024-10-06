@@ -16,7 +16,11 @@ export function createNeptune({ renderer, camera }) {
 
             const hello = document.querySelector('.hello');
             hello.innerHTML = `
-        <h1>Hello N<h1/>
+        <h1>Neptune<h1/>
+        <p>Distance from the Sun: 4.5 billion km</p>
+        <p>Length of a day: 16 hours</p>
+        <p>Length of a year: 165 Earth years</p>
+        
         `
         }
     }

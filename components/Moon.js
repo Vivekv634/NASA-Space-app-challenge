@@ -19,7 +19,11 @@ export function createMoon({ renderer, camera }) {
 
             const hello = document.querySelector('.hello');
             hello.innerHTML = `
-        <h1>Hello Moon<h1/>
+        <h1>Moon<h1/>
+        <p>Distance from Earth: 384,400 km</p>
+        <p>Length of a day: 27.3 Earth days</p>
+        <p>Length of a year: 27.3 Earth days</p>
+        
         `
         }
     }

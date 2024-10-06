@@ -17,7 +17,11 @@ export function createMercury({ renderer, camera }) {
 
             const hello = document.querySelector('.hello');
             hello.innerHTML = `
-        <h1>Hello M<h1/>
+        <h1>Mercury<h1/>
+        <p>Distance from the Sun: 57.9 million km</p>
+        <p>Length of a day: 58.6 Earth days</p>
+        <p>Length of a year: 88 Earth days</p>
+        
         `
         }
     }

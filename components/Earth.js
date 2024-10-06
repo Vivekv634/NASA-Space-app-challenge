@@ -17,7 +17,13 @@ export function createEarth({ renderer, camera }) {
 
       const hello = document.querySelector('.hello');
       hello.innerHTML = `
-      <h1>Hello<h1/>
+      <h1>Earth<h1/>
+      <p>Distance from the Sun: 149.6 million km</p>
+      <p>Length of a day: 24 hours</p>
+      <p>Length of a year: 365.25 days</p>
+      
+      
+
       `
     }
   }
