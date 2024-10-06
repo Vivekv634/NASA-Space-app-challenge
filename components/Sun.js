@@ -41,7 +41,7 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(ambientLight);
 
     // Create Mercury and its orbit
-    const mercuryGroup = createMercury();
+    const mercuryGroup = createMercury({ renderer, camera });
     const mercuryOrbitRadius = 20; // Mercury's orbit is the closest to the Sun
 
     // Position Mercury in orbit around the Sun
@@ -66,7 +66,7 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(mercuryOrbit);
 
     // Create Venus and its orbit
-    const venusGroup = createVenus();
+    const venusGroup = createVenus({ renderer, camera });
     const venusOrbitRadius = 30; // Venus is closer to the Sun than Earth
 
     // Position Venus in orbit around the Sun
@@ -88,7 +88,7 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(venusOrbit);
 
 
-    const earthGroup = createEarth();
+    const earthGroup = createEarth({ renderer, camera });
     const earthOrbitRadius = 40;
 
 
@@ -151,7 +151,7 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(earthOrbit);
 
     // Create Mars and its orbit
-    const marsGroup = createMars();
+    const marsGroup = createMars({ renderer, camera });
     const marsOrbitRadius = 55; // Mars is further from the Sun than Earth
 
     // Position Mars in orbit around the Sun
@@ -173,7 +173,7 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(marsOrbit);
 
     // Create Jupiter and its orbit
-    const jupiterGroup = createJupiter();
+    const jupiterGroup = createJupiter({ renderer, camera });
     const jupiterOrbitRadius = 70;
 
     jupiterGroup.position.set(jupiterOrbitRadius, 0, 0);
@@ -196,7 +196,7 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(jupiterOrbit);
 
     // Create Saturn and its orbit
-    const saturnGroup = createSaturn();
+    const saturnGroup = createSaturn({ renderer, camera });
     const saturnOrbitRadius = 85;
 
     saturnGroup.position.set(saturnOrbitRadius, 0, 0);
@@ -216,7 +216,7 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(saturnOrbit);
 
     // Create Uranus and its orbit
-    const uranusGroup = createUranus();
+    const uranusGroup = createUranus({ renderer, camera });
     const uranusOrbitRadius = 100;
 
     uranusGroup.position.set(uranusOrbitRadius, 0, 0);
@@ -236,7 +236,7 @@ export function createSun({ renderer, camera }) {
     sunGroup.add(uranusOrbit);
 
     // Create Neptune and its orbit
-    const neptuneGroup = createNeptune();
+    const neptuneGroup = createNeptune({ renderer, camera });
     const neptuneOrbitRadius = 110;
 
     neptuneGroup.position.set(neptuneOrbitRadius, 0, 0);

@@ -79,7 +79,7 @@ const HomePage = () => {
     };
   }, []);
 
-  return <div className='hello fixed top-14 right-10 text-white ' >
+  return <div className='hello fixed top-14 right-10 bg-transparent border text-white  ' >
 
   </div>;
 };
