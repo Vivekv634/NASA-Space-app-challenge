@@ -16,11 +16,11 @@ function asteroidTemplate(asteroidsArray, earthGroup, { camera, renderer }) {
     if (intersects.length > 0) {
       const hello = document.querySelector(".hello");
       hello.innerHTML = `
-      <h1>solution date:2024-May-14 05:47:54
-# obs. used (total):198
-data-arc span:3487 days (9.55 years)
-first obs. used:2014-10-26
-last obs. used:2024-05-13<h1/>
+      <h1>Solution date:2024-May-14 05:47:54
+ Obs. used (total):198 <br/>
+Data-arc span:3487 days (9.55 years) <br/>
+First obs. used:2014-10-26<br/>
+Last obs. used:2024-05-13<h1/>
       `;
     }
   }
